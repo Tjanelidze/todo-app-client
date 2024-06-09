@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface IFormInput {
@@ -19,10 +20,12 @@ export default function SignUp() {
     formState: { errors },
     setError,
   } = useForm<IFormInput>();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
     try {
+      // Send the data to the server
       const response = await fetch(`${API_URL}users/signup`, {
         method: "POST",
         headers: {
@@ -38,6 +41,7 @@ export default function SignUp() {
       });
       const data = await response.json();
 
+      // if there is an error in the response then throw an error
       if (!response.ok) {
         toast.error("Something went wrong");
 
@@ -48,8 +52,14 @@ export default function SignUp() {
         throw new Error(data.error);
       }
 
+      // set the jwt in the cookie
       Cookies.set("jwt", data.token, { expires: 7 });
+
+      // show success toast
       toast.success("User created successfully");
+
+      // Navigate to the home page
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
