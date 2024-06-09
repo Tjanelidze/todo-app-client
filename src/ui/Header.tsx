@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import {
   IAuthenticationContext,
@@ -6,7 +5,7 @@ import {
 } from "../context/AuthenticationContext";
 
 export default function Header() {
-  const { isAuthenticated, setIsAuthenticated } =
+  const { isAuthenticated, logout } =
     useAuthentication() as IAuthenticationContext;
 
   console.log(isAuthenticated);
@@ -24,8 +23,7 @@ export default function Header() {
             <a
               className="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white"
               onClick={() => {
-                Cookies.remove("jwt");
-                setIsAuthenticated((cur) => !cur);
+                logout();
                 navigate("/login");
               }}
             >

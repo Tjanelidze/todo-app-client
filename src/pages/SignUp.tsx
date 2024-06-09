@@ -25,7 +25,7 @@ export default function SignUp() {
     setError,
   } = useForm<IFormInput>();
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuthentication() as IAuthenticationContext;
+  const { login } = useAuthentication() as IAuthenticationContext;
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
@@ -197,7 +197,7 @@ export default function SignUp() {
           )}
         </div>
         <button
-          onClick={() => setIsAuthenticated((prev) => !prev)}
+          onClick={login}
           className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200"
         >
           Submit

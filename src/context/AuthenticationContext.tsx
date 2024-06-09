@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 export interface IAuthenticationContext {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  login: () => void;
+  logout: () => void;
 }
 
 export const AuthenticationContext =
@@ -14,6 +16,15 @@ export const AuthenticationContextProvider = ({
 }: React.PropsWithChildren<object>) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const login = () => {
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    Cookies.remove("jwt");
+    setIsAuthenticated(false);
+  };
+
   useEffect(() => {
     if (Cookies.get("jwt")) {
       setIsAuthenticated(true);
@@ -22,7 +33,7 @@ export const AuthenticationContextProvider = ({
 
   return (
     <AuthenticationContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated }}
+      value={{ isAuthenticated, setIsAuthenticated, login, logout }}
     >
       {children}
     </AuthenticationContext.Provider>
