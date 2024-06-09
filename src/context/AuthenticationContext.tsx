@@ -6,6 +6,8 @@ export interface IAuthenticationContext {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   login: () => void;
   logout: () => void;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AuthenticationContext =
@@ -15,6 +17,7 @@ export const AuthenticationContextProvider = ({
   children,
 }: React.PropsWithChildren<object>) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = () => {
     setIsAuthenticated(true);
@@ -33,7 +36,14 @@ export const AuthenticationContextProvider = ({
 
   return (
     <AuthenticationContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, login, logout }}
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        login,
+        logout,
+        isLoading,
+        setIsLoading,
+      }}
     >
       {children}
     </AuthenticationContext.Provider>

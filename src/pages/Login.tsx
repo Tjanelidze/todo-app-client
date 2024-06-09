@@ -20,11 +20,14 @@ export default function Login() {
     formState: { errors },
     setError,
   } = useForm<IFormInput>();
+  const { login, setIsLoading } = useAuthentication() as IAuthenticationContext;
+
   const navigate = useNavigate();
-  const { login } = useAuthentication() as IAuthenticationContext;
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     try {
+      setIsLoading(true);
+
       // Send the data to the server
       const response = await fetch(`${API_URL}users/login`, {
         method: "POST",
@@ -53,8 +56,7 @@ export default function Login() {
       // set the jwt in the cookie
       Cookies.set("jwt", data.token, { expires: 7 });
 
-      // show success toast
-      toast.success("User Login successfully");
+      setIsLoading(false);
 
       // Navigate to the home page
       login();
