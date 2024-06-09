@@ -1,4 +1,17 @@
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import {
+  IAuthenticationContext,
+  useAuthentication,
+} from "../context/AuthenticationContext";
+
 export default function Header() {
+  const { isAuthenticated, setIsAuthenticated } =
+    useAuthentication() as IAuthenticationContext;
+
+  console.log(isAuthenticated);
+
+  const navigate = useNavigate();
   return (
     <header className="container flex h-[20vh] items-center justify-between">
       <a href="/" className="text-xl font-bold">
@@ -8,7 +21,16 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <a href="/login">Logout</a>
+            <a
+              className="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white"
+              onClick={() => {
+                Cookies.remove("jwt");
+                setIsAuthenticated((cur) => !cur);
+                navigate("/login");
+              }}
+            >
+              {isAuthenticated ? "Logout" : "Login"}
+            </a>
           </li>
         </ul>
       </nav>

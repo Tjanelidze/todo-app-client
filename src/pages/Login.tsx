@@ -2,6 +2,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import {
+  IAuthenticationContext,
+  useAuthentication,
+} from "../context/AuthenticationContext";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface IFormInput {
@@ -17,6 +21,7 @@ export default function Login() {
     setError,
   } = useForm<IFormInput>();
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuthentication() as IAuthenticationContext;
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     try {
@@ -111,7 +116,10 @@ export default function Login() {
           )}
         </div>
 
-        <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200">
+        <button
+          onClick={() => setIsAuthenticated((prev) => !prev)}
+          className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200"
+        >
           Submit
         </button>
       </form>
