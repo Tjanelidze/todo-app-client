@@ -8,8 +8,6 @@ export default function Header() {
   const { isAuthenticated, logout } =
     useAuthentication() as IAuthenticationContext;
 
-  console.log(isAuthenticated);
-
   const navigate = useNavigate();
   return (
     <header className="container flex h-[20vh] items-center justify-between">
@@ -20,15 +18,26 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <a
-              className="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white"
-              onClick={() => {
-                logout();
-                navigate("/login");
-              }}
-            >
-              {isAuthenticated ? "Logout" : "Login"}
-            </a>
+            {isAuthenticated ? (
+              <button
+                className="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white"
+                onClick={() => {
+                  logout();
+                  navigate("/login");
+                }}
+              >
+                logout
+              </button>
+            ) : (
+              <button
+                className="cursor-pointer rounded-md bg-blue-500 px-4 py-2 text-white"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                login
+              </button>
+            )}
           </li>
         </ul>
       </nav>

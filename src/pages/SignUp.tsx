@@ -64,6 +64,7 @@ export default function SignUp() {
       toast.success("User created successfully");
 
       // Navigate to the home page
+      login();
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -196,10 +197,7 @@ export default function SignUp() {
             <p className="text-red-500">{errors.confirmPassword.message}</p>
           )}
         </div>
-        <button
-          onClick={login}
-          className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200"
-        >
+        <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200">
           Submit
         </button>
       </form>

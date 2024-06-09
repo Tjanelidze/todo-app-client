@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   IAuthenticationContext,
   useAuthentication,
@@ -57,6 +57,7 @@ export default function Login() {
       toast.success("User Login successfully");
 
       // Navigate to the home page
+      login();
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -116,12 +117,15 @@ export default function Login() {
           )}
         </div>
 
-        <button
-          onClick={login}
-          className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200"
-        >
+        <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200">
           Submit
         </button>
+        <Link
+          className="bg-stone-950 p-2 text-center font-bold text-white hover:bg-stone-800 hover:text-gray-200"
+          to="/signup"
+        >
+          Sign up
+        </Link>
       </form>
       <Toaster />
     </div>
