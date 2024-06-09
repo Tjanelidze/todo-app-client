@@ -5,7 +5,7 @@ export default function AppLayout() {
   return (
     <>
       <Header />
-      <main className="container h-[80vh]">
+      <main className="container h-[70vh]">
         <Outlet />
       </main>
     </>

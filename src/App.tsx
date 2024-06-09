@@ -11,8 +11,11 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<TodoApp />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+
+        <Route element={<AppLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
