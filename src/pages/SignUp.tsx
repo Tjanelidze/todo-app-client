@@ -2,10 +2,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import {
-  IAuthenticationContext,
-  useAuthentication,
-} from "../context/AuthenticationContext";
+import { IAuthenticationContext } from "../context/AuthenticationContext";
+import { useAuthentication } from "../hooks/useAuthentication";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface IFormInput {
@@ -25,10 +23,12 @@ export default function SignUp() {
     setError,
   } = useForm<IFormInput>();
   const navigate = useNavigate();
-  const { login } = useAuthentication() as IAuthenticationContext;
+  const { login, setIsLoading } = useAuthentication() as IAuthenticationContext;
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
+
+    setIsLoading(true);
     try {
       // Send the data to the server
       const response = await fetch(`${API_URL}users/signup`, {
@@ -60,14 +60,13 @@ export default function SignUp() {
       // set the jwt in the cookie
       Cookies.set("jwt", data.token, { expires: 7 });
 
-      // show success toast
-      toast.success("User created successfully");
-
       // Navigate to the home page
       login();
       navigate("/");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

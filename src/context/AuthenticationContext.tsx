@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 export interface IAuthenticationContext {
@@ -21,6 +21,7 @@ export const AuthenticationContextProvider = ({
 
   const login = () => {
     setIsAuthenticated(true);
+    setIsLoading(true);
   };
 
   const logout = () => {
@@ -49,15 +50,3 @@ export const AuthenticationContextProvider = ({
     </AuthenticationContext.Provider>
   );
 };
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useAuthentication() {
-  const context = useContext(AuthenticationContext);
-
-  if (context === undefined) {
-    throw new Error(
-      "useAuthentication must be used within a AuthenticationProvider",
-    );
-  }
-  return context;
-}

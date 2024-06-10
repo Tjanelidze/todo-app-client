@@ -2,10 +2,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  IAuthenticationContext,
-  useAuthentication,
-} from "../context/AuthenticationContext";
+import { IAuthenticationContext } from "../context/AuthenticationContext";
+import { useAuthentication } from "../hooks/useAuthentication";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface IFormInput {
@@ -25,9 +23,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-
       // Send the data to the server
       const response = await fetch(`${API_URL}users/login`, {
         method: "POST",
@@ -56,13 +53,13 @@ export default function Login() {
       // set the jwt in the cookie
       Cookies.set("jwt", data.token, { expires: 7 });
 
-      setIsLoading(false);
-
       // Navigate to the home page
       login();
       navigate("/");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

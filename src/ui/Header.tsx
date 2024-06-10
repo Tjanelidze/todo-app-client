@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import {
   IAuthenticationContext,
-  useAuthentication,
+ 
 } from "../context/AuthenticationContext";
+import { useAuthentication } from "../hooks/useAuthentication";
 
 export default function Header() {
   const { isAuthenticated, logout } =
