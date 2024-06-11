@@ -9,14 +9,17 @@ export default function ProtectedRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated } = useAuthentication() as IAuthenticationContext;
+  const { isAuthenticated, isLoading, setIsLoading, setIsAuthenticated } =
+    useAuthentication() as IAuthenticationContext;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    const jwtToken = localStorage.getItem("jwt");
+
+    if (!isAuthenticated && !isLoading && !jwtToken) {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isLoading, navigate, setIsAuthenticated, setIsLoading]);
 
   if (isAuthenticated) return children;
 }

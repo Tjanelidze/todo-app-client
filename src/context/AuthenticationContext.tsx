@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 export interface IAuthenticationContext {
   isAuthenticated: boolean;
@@ -21,16 +21,21 @@ export const AuthenticationContextProvider = ({
 
   const login = () => {
     setIsAuthenticated(true);
-    setIsLoading(true);
   };
 
   const logout = () => {
-    Cookies.remove("jwt");
-    setIsAuthenticated(false);
+    // Cookies.remove("jwt");
+    localStorage.removeItem("jwt");
+    if (!localStorage.getItem("jwt")) {
+      setIsAuthenticated(false);
+    }
   };
 
   useEffect(() => {
-    if (Cookies.get("jwt")) {
+    // const jwtToken = sessionStorage.getItem("jwt");
+    const jwtToken = localStorage.getItem("jwt");
+
+    if (jwtToken) {
       setIsAuthenticated(true);
     }
   }, []);

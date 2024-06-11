@@ -1,6 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { IAuthenticationContext } from "../context/AuthenticationContext";
 import { useAuthentication } from "../hooks/useAuthentication";
@@ -57,8 +56,9 @@ export default function SignUp() {
         throw new Error(data.error);
       }
 
-      // set the jwt in the cookie
-      Cookies.set("jwt", data.token, { expires: 7 });
+      // set the jwt in the session storage
+      // sessionStorage.setItem("jwt", data.token);
+      localStorage.setItem("jwt", data.token);
 
       // Navigate to the home page
       login();
