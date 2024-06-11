@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  IAuthenticationContext,
- 
-} from "../context/AuthenticationContext";
+import { IAuthenticationContext } from "../context/AuthenticationContext";
 import { useAuthentication } from "../hooks/useAuthentication";
 
 export default function Header() {
@@ -12,7 +9,7 @@ export default function Header() {
   const navigate = useNavigate();
   return (
     <header className="container flex h-[20vh] items-center justify-between">
-      <a href="/" className="text-xl font-bold">
+      <a href="/" className="text-xl font-bold dark:text-white">
         Todo App
       </a>
 

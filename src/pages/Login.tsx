@@ -74,7 +74,7 @@ export default function Login() {
         </div>
       ) : (
         <>
-          <h1 className="mb-12 block text-center text-3xl text-stone-900">
+          <h1 className="mb-12 block text-center text-3xl text-stone-900 dark:text-white">
             Login
           </h1>
           <form
@@ -93,7 +93,7 @@ export default function Login() {
                     message: "Invalid email address",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.email ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.email ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Email"
                 type="email"
                 autoComplete="email"
@@ -120,7 +120,7 @@ export default function Login() {
                     message: "Must be 8 characters or more",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.password ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.password ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Password"
                 type="password"
                 id="password"
@@ -130,11 +130,11 @@ export default function Login() {
               )}
             </div>
 
-            <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200">
+            <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
               Submit
             </button>
             <Link
-              className="bg-stone-950 p-2 text-center font-bold text-white hover:bg-stone-800 hover:text-gray-200"
+              className="bg-stone-950 p-2 text-center font-bold text-white hover:bg-stone-800 hover:text-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
               to="/signup"
             >
               Sign up

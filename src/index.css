@@ -5,3 +5,13 @@
 .container {
   @apply m-auto px-14 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl;
 }
+
+body {
+  background-color: #f3f4f6;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111827;
+  }
+}

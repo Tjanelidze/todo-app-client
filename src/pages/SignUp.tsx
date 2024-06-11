@@ -80,7 +80,7 @@ export default function SignUp() {
         </div>
       ) : (
         <>
-          <h1 className="mb-12 block text-center text-3xl text-stone-900">
+          <h1 className="mb-12 block text-center text-3xl text-stone-900 dark:text-white">
             Sign Up
           </h1>
           <form
@@ -99,7 +99,7 @@ export default function SignUp() {
                     message: "Invalid First name",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.firstName ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.firstName ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 type="text"
                 id="firstName"
                 placeholder="First name"
@@ -121,7 +121,7 @@ export default function SignUp() {
                     message: "Invalid Last name",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.lastName ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.lastName ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Last name"
                 type="text"
                 id="lastName"
@@ -143,7 +143,7 @@ export default function SignUp() {
                     message: "Invalid email address",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.email ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.email ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Email"
                 type="email"
                 autoComplete="email"
@@ -170,7 +170,7 @@ export default function SignUp() {
                     message: "Must be 8 characters or more",
                   },
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.password ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.password ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Password"
                 type="password"
                 id="password"
@@ -198,7 +198,7 @@ export default function SignUp() {
                   validate: (value) =>
                     value === getValues("password") || "Passwords do not match",
                 })}
-                className={`mb-1 w-full border-b-2 py-2 outline-none ${errors.confirmPassword ? "border-red-500" : "border-stone-500"}`}
+                className={`mb-1 w-full border-b-2 py-2 outline-none dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${errors.confirmPassword ? "border-red-500" : "border-stone-500 dark:border-stone-200"}`}
                 placeholder="Confirm Password"
                 type="password"
                 id="confirmPassword"
@@ -207,7 +207,7 @@ export default function SignUp() {
                 <p className="text-red-500">{errors.confirmPassword.message}</p>
               )}
             </div>
-            <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200">
+            <button className="bg-stone-950 p-2 font-bold text-white hover:bg-stone-800 hover:text-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
               Submit
             </button>
           </form>
