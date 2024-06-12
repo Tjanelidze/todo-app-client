@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IAuthenticationContext } from "../context/AuthenticationContext";
 import { useAuthentication } from "../hooks/useAuthentication";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 interface ITodo {
   _id: string;
@@ -19,6 +20,8 @@ export default function TodoApp() {
       completed: false,
     },
   ]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,6 +41,20 @@ export default function TodoApp() {
 
     const response = await data.json();
     setTodos([...todos, response]);
+
+    setTitle("");
+    setDescription("");
+  }
+
+  function handleDelete(id: string) {
+    setTodos(todos.filter((todo) => todo._id !== id));
+
+    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
   }
 
   useEffect(() => {
@@ -65,21 +82,27 @@ export default function TodoApp() {
         {todos.map((todo: ITodo) => (
           <div
             key={todo._id}
-            className="mb-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="relative mb-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           >
             <h3 className="text-lg font-bold dark:text-white">{todo.title}</h3>
             <p className="text-sm dark:text-white">{todo.description}</p>
+            <TrashIcon
+              onClick={() => handleDelete(todo._id)}
+              className="absolute right-5 top-3 size-6 cursor-pointer text-red-500"
+            />
           </div>
         ))}
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+        <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-600 dark:bg-gray-700">
           <div className="mb-4 rounded-t-lg bg-white px-4 py-2 dark:bg-gray-800">
             <label htmlFor="title" className="sr-only">
               Title
             </label>
             <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               type="text"
               name="title"
               id="title"
@@ -94,6 +117,8 @@ export default function TodoApp() {
             </label>
 
             <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               id="comment"
               name="description"
               required
