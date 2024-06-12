@@ -23,7 +23,7 @@ export default function SignUp() {
     setError,
   } = useForm<IFormInput>();
   const navigate = useNavigate();
-  const { login, setIsLoading, isLoading } =
+  const { login, setIsLoading, isLoading, setUser } =
     useAuthentication() as IAuthenticationContext;
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -57,6 +57,16 @@ export default function SignUp() {
 
         throw new Error(data.error);
       }
+
+      // if there is no error then set the user
+      const user = {
+        email: data.data.user.email,
+        firstName: data.data.user.firstName,
+        lastName: data.data.user.lastName,
+        token: data.token,
+        _id: data.data.user._id,
+      };
+      setUser(user);
 
       // set the jwt in the session storage
       // sessionStorage.setItem("jwt", data.token);

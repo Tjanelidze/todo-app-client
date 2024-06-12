@@ -18,7 +18,7 @@ export default function Login() {
     formState: { errors },
     setError,
   } = useForm<IFormInput>();
-  const { login, setIsLoading, isLoading } =
+  const { setUser, login, setIsLoading, isLoading } =
     useAuthentication() as IAuthenticationContext;
 
   const navigate = useNavigate();
@@ -50,8 +50,17 @@ export default function Login() {
         }
         throw new Error(data.error);
       }
-      console.log(isLoading);
-      // debugger;
+
+      // if there is no error then set the user
+      const user = {
+        email: data.data.user.email,
+        firstName: data.data.user.firstName,
+        lastName: data.data.user.lastName,
+        token: data.token,
+        _id: data.data.user._id,
+      };
+      setUser(user);
+
       // set the jwt in the session storage
       localStorage.setItem("jwt", data.token);
       // sessionStorage.setItem("jwt", data.token);
