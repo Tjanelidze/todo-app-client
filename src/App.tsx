@@ -4,8 +4,21 @@ import SignUp from "./pages/SignUp";
 import TodoApp from "./pages/TodoApp";
 import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

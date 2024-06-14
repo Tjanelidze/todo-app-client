@@ -10,12 +10,12 @@ body {
   background-color: #f3f4f6;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #f3f4f6;
-  }
+.dark {
+  background-color: #111827;
+}
 
-  .dark {
+/* @media (prefers-color-scheme: dark) {
+  body {
     background-color: #111827;
   }
-}
+} */

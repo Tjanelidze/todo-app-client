@@ -14,7 +14,11 @@ export default function Header() {
   const darkModeHandler = () => {
     setDark(!dark);
     document.body.classList.toggle("dark");
+
+    if (localStorage.theme === "light") localStorage.theme = "dark";
+    else localStorage.theme = "light";
   };
+
   return (
     <header className="container flex h-[20vh] items-center justify-between">
       <a href="/" className="text-xl font-bold dark:text-white">
@@ -25,8 +29,12 @@ export default function Header() {
         <ul className="flex items-center gap-8">
           <li>
             <button onClick={darkModeHandler}>
-              {dark && <SunIcon className="size-7 text-yellow-500" />}
-              {!dark && <MoonIcon className="size-7 text-yellow-500" />}
+              {localStorage.theme === "dark" && (
+                <SunIcon className="size-7 text-yellow-500" />
+              )}
+              {localStorage.theme === "light" && (
+                <MoonIcon className="size-7 text-yellow-500" />
+              )}
             </button>
           </li>
           <li>
