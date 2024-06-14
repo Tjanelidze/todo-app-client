@@ -6,11 +6,20 @@ import { IAuthenticationContext } from "../context/AuthenticationContext";
 import { useAuthentication } from "../hooks/useAuthentication";
 
 interface ITodoComponent {
+  index: number;
   todo: ITodo;
   onDelete: (id: string) => void;
+  onDragStart: (index: number) => void;
+  onDragEnter: (index: number) => void;
 }
 
-export default function TodoComponent({ todo, onDelete }: ITodoComponent) {
+export default function TodoComponent({
+  index,
+  todo,
+  onDelete,
+  onDragStart,
+  onDragEnter,
+}: ITodoComponent) {
   const { user } = useAuthentication() as IAuthenticationContext;
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [title, setTitle] = useState(todo.title);
@@ -56,7 +65,11 @@ export default function TodoComponent({ todo, onDelete }: ITodoComponent) {
         />
       ) : (
         <div
-          className={`relative mb-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 dark:text-white`}
+          onDragStart={() => onDragStart(index)}
+          onDragOver={(e) => e.preventDefault()}
+          onDragEnter={() => onDragEnter(index)}
+          draggable
+          className="relative mb-4 cursor-move rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         >
           <h3 className="text-lg font-bold dark:text-white">{title}</h3>
           <p className="text-sm dark:text-white">{description}</p>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IAuthenticationContext } from "../context/AuthenticationContext";
 import { useAuthentication } from "../hooks/useAuthentication";
 
@@ -12,19 +12,27 @@ export interface ITodo {
   completed: boolean;
 }
 
+const defaultTodo: ITodo = {
+  _id: "",
+  title: "",
+  description: "",
+  completed: false,
+};
+
 export default function TodoApp() {
+  // Global state
   const { user } = useAuthentication() as IAuthenticationContext;
-  const [todos, setTodos] = useState([
-    {
-      _id: "",
-      title: "",
-      description: "",
-      completed: false,
-    },
-  ]);
+
+  // Local state
+  const [todos, setTodos] = useState<ITodo[]>([defaultTodo]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  // Local refs
+  const draggingItem = useRef<number | undefined>();
+  const dragOverItem = useRef<number | undefined>();
+
+  // Local functions
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
@@ -59,6 +67,29 @@ export default function TodoApp() {
     });
   }
 
+  function handleDragStart(position: number) {
+    draggingItem.current = position;
+  }
+
+  function handleDragEnter(position: number) {
+    dragOverItem.current = position;
+    const todoCopy = [...todos];
+    if (
+      draggingItem.current !== undefined &&
+      dragOverItem.current !== undefined
+    ) {
+      const draggingItemContent = todoCopy[draggingItem.current];
+      todoCopy.splice(draggingItem.current, 1);
+      todoCopy.splice(dragOverItem.current, 0, draggingItemContent);
+    }
+
+    draggingItem.current = dragOverItem.current;
+    dragOverItem.current = undefined;
+
+    setTodos(todoCopy);
+  }
+
+  // Global functions
   useEffect(() => {
     async function fetchTodos() {
       const response = await fetch("http://localhost:3000/api/v1/todos", {
@@ -81,8 +112,15 @@ export default function TodoApp() {
           Welcome {user?.firstName}
         </h1>
 
-        {todos.map((todo: ITodo) => (
-          <TodoComponent key={todo._id} todo={todo} onDelete={handleDelete} />
+        {todos.map((todo: ITodo, index) => (
+          <TodoComponent
+            index={index}
+            key={todo._id}
+            todo={todo}
+            onDelete={handleDelete}
+            onDragStart={handleDragStart}
+            onDragEnter={handleDragEnter}
+          />
         ))}
       </div>
 
