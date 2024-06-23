@@ -38,7 +38,6 @@ export default function Login() {
         }),
       });
       const data = await response.json();
-      console.log(data);
 
       // if there is an error in the response then throw an error
       if (!response.ok) {
