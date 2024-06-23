@@ -36,6 +36,7 @@ export default function TodoComponent({
         {
           method: "PATCH",
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${user?.token}`,
           },
           body: JSON.stringify({ title, description }),
