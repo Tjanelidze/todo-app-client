@@ -44,6 +44,7 @@ export default function TodoApp() {
     const data = await fetch(`${API_URL}todos`, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${user?.token}`,
       },
       body: JSON.stringify({ title, description }),
