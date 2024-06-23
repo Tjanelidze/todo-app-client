@@ -29,13 +29,16 @@ export default function Login() {
       // Send the data to the server
       const response = await fetch(`${API_URL}users/login`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           email,
           password,
         }),
       });
-
       const data = await response.json();
+      console.log(data);
 
       // if there is an error in the response then throw an error
       if (!response.ok) {
