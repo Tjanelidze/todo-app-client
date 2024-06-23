@@ -4,6 +4,7 @@ import { useAuthentication } from "../hooks/useAuthentication";
 
 import TodoForm from "../ui/TodoForm";
 import TodoComponent from "../components/TodoComponent";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export interface ITodo {
   _id: string;
@@ -40,10 +41,9 @@ export default function TodoApp() {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
 
-    const data = await fetch("http://localhost:3000/api/v1/todos", {
+    const data = await fetch(`${API_URL}todos`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user?.token}`,
       },
       body: JSON.stringify({ title, description }),
@@ -59,7 +59,7 @@ export default function TodoApp() {
   function handleDelete(id: string) {
     setTodos(todos.filter((todo) => todo._id !== id));
 
-    fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+    fetch(`${API_URL}todos/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -92,11 +92,13 @@ export default function TodoApp() {
   // Global functions
   useEffect(() => {
     async function fetchTodos() {
-      const response = await fetch("http://localhost:3000/api/v1/todos", {
+      const response = await fetch(`${API_URL}todos`, {
+        method: "GET",
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
       });
+      console.log("esaaaa", response);
       const data = await response.json();
 
       setTodos(data);

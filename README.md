@@ -27,6 +27,21 @@ This project is a simple Todo application built with React + TypeScript and Vite
 
 To run the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/Tjanelidze/todo-app-client.git`
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
+1. Clone both client and server repositories:
+
+   - Client: `git clone https://github.com/Tjanelidze/todo-app-client.git`
+   - Server: `git clone https://github.com/Tjanelidze/todo-app-server.git`
+
+2. Install dependencies:
+
+   - Client: `npm install`
+   - Server: `npm install`
+
+3. Start the development server:
+
+   - Client: `npm run dev`
+   - Server: `npm start`
+
+## Server Side Code
+
+The server side code for this project can be found here: [https://github.com/Tjanelidze/todo-app-server](https://github.com/Tjanelidze/todo-app-server)
