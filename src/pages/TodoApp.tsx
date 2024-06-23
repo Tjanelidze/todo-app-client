@@ -4,7 +4,6 @@ import { useAuthentication } from "../hooks/useAuthentication";
 
 import TodoForm from "../ui/TodoForm";
 import TodoComponent from "../components/TodoComponent";
-import { ClipLoader } from "react-spinners";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export interface ITodo {
@@ -23,7 +22,7 @@ const defaultTodo: ITodo = {
 
 export default function TodoApp() {
   // Global state
-  const { user, isLoading } = useAuthentication() as IAuthenticationContext;
+  const { user } = useAuthentication() as IAuthenticationContext;
 
   // Local state
   const [todos, setTodos] = useState<ITodo[]>([defaultTodo]);
@@ -115,22 +114,16 @@ export default function TodoApp() {
           Welcome {user?.firstName}
         </h1>
 
-        {isLoading ? (
-          <div className="flex h-full items-center justify-center">
-            <ClipLoader color={"#2c50ec"} loading={isLoading} size={150} />
-          </div>
-        ) : (
-          todos.map((todo: ITodo, index) => (
-            <TodoComponent
-              index={index}
-              key={todo._id}
-              todo={todo}
-              onDelete={handleDelete}
-              onDragStart={handleDragStart}
-              onDragEnter={handleDragEnter}
-            />
-          ))
-        )}
+        {todos.map((todo: ITodo, index) => (
+          <TodoComponent
+            index={index}
+            key={todo._id}
+            todo={todo}
+            onDelete={handleDelete}
+            onDragStart={handleDragStart}
+            onDragEnter={handleDragEnter}
+          />
+        ))}
       </div>
 
       <TodoForm
