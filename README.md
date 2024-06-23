@@ -25,7 +25,6 @@ The project is divided into two main parts: client and server. You can find the 
 - React Hot Toast
 - React Spinners
 - Tailwind CSS
-- JavaScript Cookie
 
 ## Setup
 
