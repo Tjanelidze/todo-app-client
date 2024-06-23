@@ -1,6 +1,10 @@
 # Todo App
 
-This project is a simple Todo application built with React + TypeScript and Vite. It uses the MERN stack and the Context API for state management.
+This is a simple Todo App where users can create, delete, update and see their todos. This project was created to practice backend development with Node.js, Express.js and MongoDB.
+
+## Project Structure
+
+The project is divided into two main parts: client and server. You can find the client side on this [repo](https://github.com/Tjanelidze/todo-app-client) and it is published on this [site](https://todo-app-client-self.vercel.app/). On the other hand, the server side is located on this [repo](https://github.com/Tjanelidze/todo-app-server).
 
 ## Features
 
@@ -44,4 +48,4 @@ To run the project, follow these steps:
 
 ## Server Side Code
 
-The server side code for this project can be found here: [https://github.com/Tjanelidze/todo-app-server](https://github.com/Tjanelidze/todo-app-server)
+The server side code for this project can be found here: [repo](https://github.com/Tjanelidze/todo-app-server)
