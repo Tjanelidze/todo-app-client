@@ -13,8 +13,10 @@ function App() {
       (!("theme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
+      localStorage.theme = "dark";
       document.body.classList.add("dark");
     } else {
+      localStorage.theme = "light";
       document.body.classList.remove("dark");
     }
   }, []);
